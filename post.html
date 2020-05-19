@@ -111,8 +111,18 @@
                 </table>
 
                 <hr />
-                <div>
-                    <textarea id="summernote" name="editordata"></textarea>
+                <div id="title">
+                    <label v-text="no == 47 ? '질문' : '제목'"></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="title" v-model="title" />
+                    </div>
+                </div>
+
+                <div id="content">
+                    <label v-text="no == 47 ? '답변' : '내용'"></label>
+                    <div class="col-sm-8">
+                        <textarea id="summernote" name="content"></textarea>
+                    </div>
                 </div>
             </form>
         </div>
@@ -139,6 +149,9 @@
         <script>
             $(document).ready(function () {
                 $("#summernote").summernote();
+
+                // 특정 변수에 summernote 내용 넣기
+                $("#summernote").summernote("code", detail.content);
             });
         </script>
 
@@ -154,6 +167,8 @@
                     siteCd: "1",
                     dispYn: "Y",
                     deviceTypeCd: "1",
+                    title: "",
+                    content: "",
 
                     ynArr: ["Y", "N"],
                     siteList: [
