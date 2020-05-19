@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>수정@@@</title>
+    </head>
+    <body>
+        <div id="app">
+            <p v-text="message"></p>
+            <input type="text" v-model="pick" />
+            <span v-text="pick"></span>
+            <br />
+            <input type="text" :value="a" @input="a=$event.target.value" />
+            <span v-text="a"></span>
+            <br />
+            <select v-model="selected">
+                <!-- inline object literal -->
+                <option v-bind:value="{ number: 123 }">123</option>
+                <option v-bind:value="{ number: 456 }">456</option>
+                <option>789</option>
+            </select>
+            <br />
+            <input
+                type="text"
+                v-bind:disabled="ture === tur"
+                value="disabled??"
+            />
+            <br />
+            <input type="checkbox" id="checkbox" v-model="checked" />
+            <label for="checkbox">{{ checked }}</label>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            var vue = new Vue({
+                el: "#app",
+                data: {
+                    message: "hi",
+                    pick: "v-model",
+                    a: "v-bind:value",
+                    selected: "",
+                    ture: true,
+                    checked: false,
+                },
+            });
+        </script>
+    </body>
+</html>
