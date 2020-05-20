@@ -6,7 +6,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <title>list</title>
+        <title>detail</title>
 
         <!-- CSS -->
         <link
@@ -15,17 +15,90 @@
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
             crossorigin="anonymous"
         />
+
+        <!-- summernote -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css"
+            rel="stylesheet"
+        />
     </head>
     <body>
         <div id="detail" class="container">
-            <form action="." method="post">
+            <form action="#" method="post">
                 <div class="row">
                     <div class="col-sm">
-                        <label for="title">제목: </label>
-                        <input type="text" name="title" v-model="post.title" />
+                        <label for="title">제목:</label>
+                        <input
+                            type="text"
+                            name="title"
+                            id="title"
+                            v-model="post.title"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="writer">글쓴이: </label>
+                        <input
+                            type="text"
+                            name="writer"
+                            id="writer"
+                            v-bind:value="post.writer"
+                            readonly="readonly"
+                        />
+                    </div>
+                    <div class="col-sm">
+                        <label for="email">이메일: </label>
+                        <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            v-bind:value="post.email"
+                            readonly="readonly"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <label for="password">비밀번호:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            v-model="post.password"
+                            maxlength="6"
+                        />
+                        <input
+                            type="checkbox"
+                            name="secretYn"
+                            id="secretYn"
+                            v-model="post.secretYn"
+                        />
+                        <label for="secretYn">비밀</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <textarea id="summernote" name="summernote"></textarea>
                     </div>
                 </div>
             </form>
+
+            <br /><br /><br /><br /><br />
+            <div>
+                <table border="1">
+                    <thead>
+                        <th>제목</th>
+                        <th>글쓴이</th>
+                        <th>내용</th>
+                    </thead>
+                    <tbody>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.writer }}</td>
+                        <td>{{ post.content }}</td>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- bootstrap, jQuery, popper -->
@@ -45,6 +118,14 @@
             crossorigin="anonymous"
         ></script>
 
+        <!-- summernote -->
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#summernote").summernote();
+            });
+        </script>
+
         <!-- Vue.js -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script>
@@ -57,10 +138,16 @@
                         email: "",
                         password: "",
                         content: "",
+                        secretYn: "",
                         linkUrl1: "",
                         linkUrl2: "",
                         attachment: "",
                     },
+                },
+                /* 초기 세팅 */
+                created() {
+                    this.post.writer = "writer";
+                    this.post.email = "writer@sample.com";
                 },
             });
         </script>
