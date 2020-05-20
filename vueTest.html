@@ -23,16 +23,28 @@
             <br />
             <input
                 type="text"
-                v-bind:disabled="ture === tur"
+                v-bind:disabled="ture === ture"
                 value="disabled??"
             />
             <br />
             <input type="checkbox" id="checkbox" v-model="checked" />
             <label for="checkbox">{{ checked }}</label>
+
+            <br /><br />
+
+            <ol>
+                <!-- todo-item 컴포넌트의 인스턴스 만들기 -->
+                <todo-item></todo-item>
+            </ol>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script>
+            // todo-item 이름을 가진 컴포넌트를 정의합니다
+            Vue.component("todo-item", {
+                template: "",
+            });
+
             var vue = new Vue({
                 el: "#app",
                 data: {
