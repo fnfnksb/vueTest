@@ -1,6 +1,6 @@
 # vueTest
 
-## 2개
+## commit
 
 ### 1st commit
 
