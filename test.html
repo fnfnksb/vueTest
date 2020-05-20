@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>detail</title>
+        <title>testetststkldkldlklfklri!</title>
 
         <!-- CSS ----------------------------------------------------------- -->
         <!-- bootstrap -->
@@ -121,8 +121,17 @@
                 <div id="content">
                     <label v-text="no == 47 ? '답변' : '내용'"></label>
                     <div class="col-sm-8">
-                        <textarea id="summernote" name="content"></textarea>
+                        <textarea id="summernote" name="summernote"></textarea>
                     </div>
+                </div>
+                <br /><br /><br />
+                <div>
+                    <button type="button" @click="viewContent">내용보기</button>
+                    <p
+                        class="col-sm-10"
+                        style="border: 1px solid grey; padding: 5px;"
+                        v-text="content"
+                    ></p>
                 </div>
             </form>
         </div>
@@ -149,9 +158,6 @@
         <script>
             $(document).ready(function () {
                 $("#summernote").summernote();
-
-                // 특정 변수에 summernote 내용 넣기
-                $("#summernote").summernote("code", detail.content);
             });
         </script>
 
@@ -195,6 +201,11 @@
                             text: "MOBILE",
                         },
                     ],
+                },
+                methods: {
+                    viewContent: function () {
+                        this.content = $("#summernote").summernote("code");
+                    },
                 },
             });
         </script>
