@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>detail</title>
+
+        <!-- CSS ----------------------------------------------------------- -->
+        <!-- bootstrap -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+        />
+        <!-- summernote -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div id="detail">
+            <div id="postCheck">
+                <label>게시판: </label>
+                <label>
+                    <input type="radio" v-model="no" value="47" />
+                    FAQ
+                </label>
+                <label>
+                    <input type="radio" v-model="no" value="48" />
+                    공지사항
+                </label>
+            </div>
+
+            <br /><br /><br />
+
+            <div id="title">
+                <h3 v-if="no == 47">FAQ</h3>
+                <h3 v-else>공지사항</h3>
+            </div>
+
+            <form action="post" id="postForm">
+                <div id="checkSite">
+                    <label>사이트: </label>
+                    <label v-for="site in siteList">
+                        <input
+                            type="radio"
+                            name="siteCd"
+                            v-bind:value="site.value"
+                            v-model="siteCd"
+                        />
+                        {{ site.text }}
+                    </label>
+                </div>
+
+                <div id="checkDevice">
+                    <label>디바이스: </label>
+                    <label v-for="device in deviceList">
+                        <input
+                            type="radio"
+                            name="deviceTypeCd"
+                            v-bind:value="device.value"
+                            v-model="deviceTypeCd"
+                        />
+                        {{ device.text }}
+                    </label>
+                </div>
+
+                <div id="dispYn">
+                    <label>노출여부: </label>
+                    <label v-for="yn in ynArr">
+                        <input
+                            type="radio"
+                            name="dispYn"
+                            v-bind:value="yn"
+                            v-model="dispYn"
+                        />
+                        {{ yn == 'Y' ? '노출' : '미노출' }}
+                    </label>
+                </div>
+
+                <div id="topYn" v-if="no == 47">
+                    <label>Top 10 여부: </label>
+                    <label v-for="yn in ynArr">
+                        <input
+                            type="radio"
+                            name="topYn"
+                            v-bind:value="yn"
+                            v-model="topYn"
+                        />
+                        {{ yn }}
+                    </label>
+                </div>
+
+                <table border="1">
+                    <thead>
+                        <th>사이트</th>
+                        <th>디바이스</th>
+                        <th>노출여부</th>
+                        <th v-if="no == 47">Top10 여부</th>
+                    </thead>
+                    <tbody>
+                        <td>{{ siteCd == 1 ? '진짜' : '임시' }}</td>
+                        <td v-if="deviceTypeCd == 1">공용</td>
+                        <td v-if="deviceTypeCd == 2">PC</td>
+                        <td v-if="deviceTypeCd == 3">MOBILE</td>
+                        <td>{{ dispYn }}</td>
+                        <td v-if="no == 47">{{ topYn }}</td>
+                    </tbody>
+                </table>
+
+                <hr />
+                <div id="title">
+                    <label v-text="no == 47 ? '질문' : '제목'"></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="title" v-model="title" />
+                    </div>
+                </div>
+
+                <div id="content">
+                    <label v-text="no == 47 ? '답변' : '내용'"></label>
+                    <div class="col-sm-8">
+                        <textarea id="summernote" name="content"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Bootstrap, jQuery -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- summernote -->
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#summernote").summernote();
+
+                // 특정 변수에 summernote 내용 넣기
+                $("#summernote").summernote("code", detail.content);
+            });
+        </script>
+
+        <!-- vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            var detail = null;
+            detail = new Vue({
+                el: "#detail",
+                data: {
+                    no: "47",
+                    topYn: "Y",
+                    siteCd: "1",
+                    dispYn: "Y",
+                    deviceTypeCd: "1",
+                    title: "",
+                    content: "",
+
+                    ynArr: ["Y", "N"],
+                    siteList: [
+                        {
+                            value: "1",
+                            text: "진짜",
+                        },
+                        {
+                            value: "2",
+                            text: "임시",
+                        },
+                    ],
+                    deviceList: [
+                        {
+                            value: "1",
+                            text: "공용",
+                        },
+                        {
+                            value: "2",
+                            text: "PC",
+                        },
+                        {
+                            value: "3",
+                            text: "MOBILE",
+                        },
+                    ],
+                },
+            });
+        </script>
+    </body>
+</html>
