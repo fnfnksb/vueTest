@@ -26,7 +26,7 @@
         <div id="detail" class="container">
             <form action="#" method="post">
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-8">
                         <label for="title">제목:</label>
                         <input
                             type="text"
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-4">
                         <label for="writer">글쓴이: </label>
                         <input
                             type="text"
@@ -47,7 +47,7 @@
                             readonly="readonly"
                         />
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-4">
                         <label for="email">이메일: </label>
                         <input
                             type="text"
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-8">
                         <label for="password">비밀번호:</label>
                         <input
                             type="password"
@@ -78,27 +78,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col-sm-8">
                         <textarea id="summernote" name="summernote"></textarea>
                     </div>
                 </div>
+
+                <button type="button" @click="showContent">send</button>
             </form>
 
             <br /><br /><br /><br /><br />
-            <div>
-                <table border="1">
-                    <thead>
-                        <th>제목</th>
-                        <th>글쓴이</th>
-                        <th>내용</th>
-                    </thead>
-                    <tbody>
-                        <td>{{ post.title }}</td>
-                        <td>{{ post.writer }}</td>
-                        <td>{{ post.content }}</td>
-                    </tbody>
-                </table>
-            </div>
+
+            <div v-html="post.content"></div>
         </div>
 
         <!-- bootstrap, jQuery, popper -->
@@ -138,10 +128,17 @@
                         email: "",
                         password: "",
                         content: "",
-                        secretYn: "",
+                        secretYn: false,
                         linkUrl1: "",
                         linkUrl2: "",
                         attachment: "",
+                    },
+                },
+                methods: {
+                    showContent: function () {
+                        this.post.content = $("#summernote").summernote("code");
+
+                        console.log(this.post);
                     },
                 },
                 /* 초기 세팅 */
