@@ -46,7 +46,28 @@
 
             <div class="static" v-bind:class="classObject">hihi</div>
             <div class="static" v-bind:class="classObject2">hihihi</div>
+
+            <div v-bind="{ id: someProp, 'other-attr': otherProp }">
+                0000000
+            </div>
+            <div v-bind:text-content.prop="text">
+                prop 수식어를 사용하는 DOM 속성 바인딩
+            </div>
+
+            <div v-bind:id="'list-' + id">hi</div>
+
+            <a v-bind:href="url">naver</a>
+            <a href="#" v-on:click.stop="doThis">naver</a>
+            <a href="#" v-on:click="doThis">naver</a>
+
+            <template>
+                <div>왜나오지</div>
+            </template>
         </div>
+
+        <template>
+            <div>왜나오지2</div>
+        </template>
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script>
@@ -67,6 +88,11 @@
                     hasError: false,
                     isHidden: true,
                     error: null,
+                    someProp: "whffu",
+                    otherProp: false,
+                    text: "우아",
+                    id: "hi",
+                    url: "https://www.naver.com",
 
                     classObject: {
                         active: true,
@@ -74,7 +100,11 @@
                         static: true,
                     },
                 },
-                methods: {},
+                methods: {
+                    doThis: function () {
+                        console.log("doThis?");
+                    },
+                },
                 // beforeCreate() {}, // 제일 먼저 실행되기 때문에 다른 옵션에 접근불가
                 // created: {}, // data에 직접 접근 가능. 초기에 외부에서 받아온 값들로 data 세팅 및 이벤트 리스너 선언
                 // beforeMount: {},
