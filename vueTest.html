@@ -21,11 +21,7 @@
                 <option>789</option>
             </select>
             <br />
-            <input
-                type="text"
-                v-bind:disabled="ture === ture"
-                value="disabled??"
-            />
+            <input type="text" v-bind:disabled="checked" value="disabled??" />
             <br />
             <input type="checkbox" id="checkbox" v-model="checked" />
             <label for="checkbox">{{ checked }}</label>
