@@ -110,11 +110,7 @@
 
         <!-- summernote -->
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $("#summernote").summernote();
-            });
-        </script>
+        <script></script>
 
         <!-- Vue.js -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -145,6 +141,10 @@
                 created() {
                     this.post.writer = "writer";
                     this.post.email = "writer@sample.com";
+
+                    $(document).ready(function () {
+                        $("#summernote").summernote();
+                    });
                 },
             });
         </script>
